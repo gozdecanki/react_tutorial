@@ -1,0 +1,114 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>İlk Element</title>
+    <style>
+        .card{
+            border: 1px solid salmon;
+            margin: 15px;
+            padding: 10px;
+        }
+        .online{
+            color: green;
+        }
+        .offline{
+            color: grey;
+        }
+        .busy{
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">Ben aslında yokum</div>
+</body>
+<script type="text/babel">
+    //   const element=React.createElement('h1',{},'Hello React')
+    const ad = 'React';
+    const element = <h1>Merhaba {ad} {new Date().toLocaleTimeString()}  </h1>
+
+    //     function MyComponent() {
+    //         return (
+    //             <div>
+    //                 <h1>Adı: Mehmet Ali</h1>
+    //                 <h3>Durum: Çevrimiçi</h3>
+    //             </div>
+    //         )
+    //     }
+
+    // const Comp = () =>{
+    //     return (
+    //             <div>
+    //                 <h1>Adı: Mehmet Ali</h1>
+    //                 <h3>Durum: Çevrimiçi</h3>
+    //             </div>
+    //         )
+    // }
+    //  ReactDOM.render(<MyComponent/>,document.getElementById('root'))
+    // ReactDOM.render(<Comp />, document.getElementById('root'))
+
+    class Kisi extends React.Component {
+        // constructor() {
+        //     super();
+        //     this.state = {}
+        //     this.clickHandler=this.clickHandler.bind(this)
+        // }
+
+        state = {
+            name: "Mehmet Ali",
+            state: "offline"
+        }
+
+        clickHandler = (e) => {
+            console.log('Butona Tıklandı')
+            console.log(e.target);
+            this.setState({
+                state: 'offline'
+            });
+        }
+        changeHandler = (e) => {
+            console.log(e.target);
+            this.setState({
+                state: e.target.value
+            })
+        }
+
+        changeNameHandler = (e) => {
+            this.setState({
+                name: e.target.value
+            })
+        }
+
+        render() {
+            const { name, state } = this.state;
+            return (
+                <div className="card">
+                    <h1>Adı: {name}</h1>
+                    <h3 className={state}>Durum: {state}</h3>
+                    <button onClick={this.clickHandler}>Durum Değiştir</button>
+
+                    <select name="state" id="state" onChange={this.changeHandler} value={state}>
+                        <option value="online">online</option>
+                        <option value="offline">offline</option>
+                        <option value="busy">busy</option>
+                    </select>
+                    <br />
+
+                    <input type="text" name="name" onChange={this.changeNameHandler} />
+
+                </div>)
+
+        }
+    }
+
+
+    ReactDOM.render(<Kisi />, document.getElementById('root'))
+</script>
+
+</html>
